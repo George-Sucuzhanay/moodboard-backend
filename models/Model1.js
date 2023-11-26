@@ -1,3 +1,4 @@
+// this file defines a Sequelize model for FavoritesCollection table specifying fields like imageID, imageURL n likes
 const Sequelize = require('sequelize');
 const db = require('../db');
 

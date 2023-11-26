@@ -1,3 +1,4 @@
+-- db.sql is a SQL script to create two tables: PhotoCaptions and PhotosFavorites & defines fields for each table
 CREATE TABLE PhotoCaptions (
     caption_id SERIAL PRIMARY KEY,
     caption_text TEXT NOT NULL,
