@@ -2,7 +2,7 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
 
-const CaptionsCollection = db.define('caption', {
+const PhotoCaptions = db.define('PhotoCaptions', {
   caption_id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -22,6 +22,11 @@ const CaptionsCollection = db.define('caption', {
     type: Sequelize.DATE,
     allowNull: false,
   },
+},
+{
+    tableName: 'photocaptions',
+    freezeTableName: true,
+    timestamps: false,
 });
 
-module.exports = CaptionsCollection;
+module.exports = PhotoCaptions;
