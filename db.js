@@ -2,9 +2,18 @@
 const { Sequelize } = require('sequelize');
 console.log('Opening database connection');
 
-const db = new Sequelize('my_database', 'georgesucuzhanay', 'test1', {
+const db = new Sequelize('postgres', 'georgesucuzhanay', 'test1', {
     host: 'localhost',
     dialect: 'postgres'
 });
+
+db.authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
+
 
 module.exports = db;
