@@ -1,7 +1,7 @@
 -- db.sql is a SQL script to create two tables: PhotoCaptions and PhotosFavorites & defines fields for each table
 -- these fields like caption id, text should match the model1 and model2 fields
 
-CREATE DATABASE my_database;
+CREATE DATABASE postgres;
 
 
 CREATE TABLE PhotoCaptions (
