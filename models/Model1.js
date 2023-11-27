@@ -12,9 +12,9 @@ const FavoritesCollection = db.define("favorite", {
         type: Sequelize.STRING
     },
     
-    user_id: {
+    caption_id: {
         type: Sequelize.NUMBER
-    },
+    }
 });
 
 module.exports = FavoritesCollection;
