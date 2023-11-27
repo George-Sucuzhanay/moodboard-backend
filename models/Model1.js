@@ -1,16 +1,20 @@
+// this file defines a Sequelize model for FavoritesCollection table specifying fields like imageID, imageURL n likes
 const Sequelize = require('sequelize');
 const db = require('../db');
 
 const FavoritesCollection = db.define("favorite", {
-    imageID: {
+    photo_id: {
         type: Sequelize.NUMBER,
         allowNull: false
-      },
+    },
     
-    imageURL: {
+    photo_url: {
         type: Sequelize.STRING
     },
-    likes: {
+    
+    caption_id: {
         type: Sequelize.NUMBER
-    },
-})
+    }
+});
+
+module.exports = FavoritesCollection;

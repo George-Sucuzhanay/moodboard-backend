@@ -1,3 +1,4 @@
+// this file configures the Sequelize database connection using the info in db.sql
 const { Sequelize } = require('sequelize');
 console.log('Opening database connection');
 

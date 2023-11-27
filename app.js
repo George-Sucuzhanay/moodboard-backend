@@ -1,3 +1,4 @@
+// here we initializes an Express app, parse JSON & will soon define routes here
 const express = require('express');
 const app = express();
 
