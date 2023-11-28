@@ -4,7 +4,11 @@ const app = express();
 
 app.use(express.json());
 
-// Define your routes here
+// Import the router from PhotoRoutes.js
+const photoRoutes = require('./routes/PhotoRoutes');
+
+// Use the router with your Express app
+app.use('/api', photoRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
