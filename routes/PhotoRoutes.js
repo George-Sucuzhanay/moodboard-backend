@@ -27,7 +27,7 @@ router.get('/favorites', async (req, res) => {
     }
 });
 
-// GET all photo captions
+// Get all photo captions
 router.get('/captions', async (req, res) => {
     try {
         const captions = await PhotoCaption.findAll();
@@ -37,8 +37,78 @@ router.get('/captions', async (req, res) => {
     }
 });
 
+// Get a single favorite photo by id
+router.get('/favorites/:id', async (req, res) => {
+    try {
+        const favorite = await PhotoFavorite.findByPk(req.params.id);
+        if (favorite) {
+            res.json(favorite);
+        } else {
+            res.status(404).send('Favorite photo not found');
+        }
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
+
+// Get a single photo caption by id
+router.get('/captions/:id', async (req, res) => {
+    try {
+        const caption = await PhotoCaption.findByPk(req.params.id);
+        if (caption) {
+            res.json(caption);
+        } else {
+            res.status(404).send('Caption not found');
+        }
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
+
+// UNFINISHED ROUTE!!! ROUTE TO BE MODIFED B/C ASSOCIATIONS ARE NEEDED
+// LAST ROUTE TO COMPLETE
+// Get a photo caption and all associated favorite photos
+router.get('/captions/:id/favorites', async (req, res) => {
+    try {
+        const caption = await PhotoCaption.findByPk(req.params.id, {
+            include: [{
+                model: PhotoFavorite,
+                as: 'favorites' // This assumes you have set up an association alias in your Sequelize models
+            }]
+        });
+
+        if (caption) {
+            res.json(caption);
+        } else {
+            res.status(404).send('Caption not found');
+        }
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
 
 // UPDATE
+// Update an existing favorite photo
+router.put('/favorites/:id', async (req, res) => {
+    const { id } = req.params;
+    const updatedData = req.body;
+
+    try {
+        const [updatedRows] = await PhotoFavorite.update(updatedData, {
+            where: { photo_id: id }
+        });
+
+        if (updatedRows > 0) {
+            const updatedFavorite = await PhotoFavorite.findByPk(id);
+            res.status(200).json(updatedFavorite);
+        } else {
+            res.status(404).send('Favorite photo not found');
+        }
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
+
 // Update an existing photo caption
 router.put('/captions/:id', async (req, res) => {
     const { id } = req.params;
@@ -81,6 +151,24 @@ router.delete('/favorites/:id', async (req, res) => {
         res.status(500).send(error.message);
     }
 });
+
+// Delete a photo caption
+router.delete('/captions/:id', async (req, res) => {
+    try {
+        const deleted = await PhotoCaption.destroy({
+            where: { caption_id: req.params.id }
+        });
+
+        if (deleted) {
+            res.status(200).send('Caption deleted successfully');
+        } else {
+            res.status(404).send('Caption not found');
+        }
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
+
 
 module.exports = router;
 
