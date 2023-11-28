@@ -1,3 +1,12 @@
+//this file contains routes for handling CRUD operations for our models
+
+//fulfills requirement "Write routes to add new instances to each model" b/c routes for adding favorites & captions are implemented here
+//fulfills requirement "Write routes that return all instances from each model" b/c routes for getting all favorites & captions are implemented here 
+//fulfills requirement "Write routes that return individual instances from each model based on their IDs" b/c routes for getting a single favorite or caption by ID are implemented here
+//fulfills requirement "Write routes to update instances in each model" b/c routes for updating favorites & captions are implemented here
+//fulfills requirement "Write routes to remove instances from each model, based on their IDs" b/c routes for deleting favorites & captions are implemented here
+//SOOOOOON !! fulfills requirement "Write a route that returns one instance from a model, and all instances associated with it in a different model" b/c 
+
 const express = require('express');
 const router = express.Router();
 
@@ -6,7 +15,7 @@ const PhotoCaption = require('../models/Model2');
 
 
 // CREATE
-// Create a new favorite photo
+// Create a new favorite photo in the photofavorites table
 router.post('/favorites', async (req, res) => {
     try {
         const newFavorite = await PhotoFavorite.create(req.body);
@@ -65,9 +74,13 @@ router.get('/captions/:id', async (req, res) => {
     }
 });
 
-// UNFINISHED ROUTE!!! ROUTE TO BE MODIFED B/C ASSOCIATIONS ARE NEEDED
+// UNFINISHED ROUTE!!! ROUTE TO BE MODIFED B/C ASSOCIATIONS ARE NEEDED 
 // LAST ROUTE TO COMPLETE
 // Get a photo caption and all associated favorite photos
+
+// this is the relationship between caption_id between the two models i'm guessing?
+
+
 router.get('/captions/:id/favorites', async (req, res) => {
     try {
         const caption = await PhotoCaption.findByPk(req.params.id, {
@@ -88,7 +101,7 @@ router.get('/captions/:id/favorites', async (req, res) => {
 });
 
 // UPDATE
-// Update an existing favorite photo
+// Update an existing favorite photo by ID
 router.put('/favorites/:id', async (req, res) => {
     const { id } = req.params;
     const updatedData = req.body;
@@ -109,7 +122,7 @@ router.put('/favorites/:id', async (req, res) => {
     }
 });
 
-// Update an existing photo caption
+// Update an existing photo caption by ID
 router.put('/captions/:id', async (req, res) => {
     const { id } = req.params;
     const updatedData = req.body;
@@ -135,7 +148,7 @@ router.put('/captions/:id', async (req, res) => {
 });
 
 // DELETE
-// Delete a favorite photo
+// Delete a favorite photo by ID
 router.delete('/favorites/:id', async (req, res) => {
     try {
         const deleted = await PhotoFavorite.destroy({
@@ -152,7 +165,7 @@ router.delete('/favorites/:id', async (req, res) => {
     }
 });
 
-// Delete a photo caption
+// Delete a photo caption by ID
 router.delete('/captions/:id', async (req, res) => {
     try {
         const deleted = await PhotoCaption.destroy({
