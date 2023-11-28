@@ -6,7 +6,7 @@ console.log('Opening database connection');
 
 const db = new Sequelize('postgres', 'georgesucuzhanay', 'test1', { //new sequelize instance
     host: 'localhost',
-    dialect: 'postgres'
+    dialect: 'postgres',
 });
 
 db.authenticate() //checks if connection to database is successful

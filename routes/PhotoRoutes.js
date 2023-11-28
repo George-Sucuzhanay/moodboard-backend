@@ -46,14 +46,21 @@ router.get('/captions', async (req, res) => {
     }
 });
 
-// Get a single favorite photo by id
+// Get a single favorite photo by id and its associated caption
 router.get('/favorites/:id', async (req, res) => {
     try {
-        const favorite = await PhotoFavorite.findByPk(req.params.id);
-        if (favorite) {
-            res.json(favorite);
+        const photo = await PhotoFavorite.findByPk(req.params.id, {
+            include: [{
+                model: PhotoCaption,
+                as: 'caption', // This alias should match the one used in association
+                attributes: ['caption_text'] // Include only 'caption_text' field or more fields as needed
+            }]
+        });
+        
+        if (photo) {
+            res.json(photo);
         } else {
-            res.status(404).send('Favorite photo not found');
+            res.status(404).send('Photo not found');
         }
     } catch (error) {
         res.status(500).send(error.message);
@@ -64,32 +71,6 @@ router.get('/favorites/:id', async (req, res) => {
 router.get('/captions/:id', async (req, res) => {
     try {
         const caption = await PhotoCaption.findByPk(req.params.id);
-        if (caption) {
-            res.json(caption);
-        } else {
-            res.status(404).send('Caption not found');
-        }
-    } catch (error) {
-        res.status(500).send(error.message);
-    }
-});
-
-// UNFINISHED ROUTE!!! ROUTE TO BE MODIFED B/C ASSOCIATIONS ARE NEEDED 
-// LAST ROUTE TO COMPLETE
-// Get a photo caption and all associated favorite photos
-
-// this is the relationship between caption_id between the two models i'm guessing?
-
-
-router.get('/captions/:id/favorites', async (req, res) => {
-    try {
-        const caption = await PhotoCaption.findByPk(req.params.id, {
-            include: [{
-                model: PhotoFavorite,
-                as: 'favorites' // This assumes you have set up an association alias in your Sequelize models
-            }]
-        });
-
         if (caption) {
             res.json(caption);
         } else {

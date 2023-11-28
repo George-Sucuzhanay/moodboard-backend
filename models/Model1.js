@@ -4,6 +4,7 @@
 //fulfills requirement "2 or models should be associated with each other" b/c association is in PhotosFavorites model with caption_id referencing caption_id in PhotoCaptions model
 const Sequelize = require('sequelize');
 const db = require('../db');
+const PhotoCaptions = require('./Model2');
 
 const PhotosFavorites = db.define("PhotosFavorites", {
     photo_id: { //unique identifier for each photo aka primary key
@@ -29,6 +30,12 @@ const PhotosFavorites = db.define("PhotosFavorites", {
     tableName: 'photosfavorites',
     freezeTableName: true,
     timestamps: false,
+});
+
+// Association: PhotoFavorite belongs to PhotoCaption
+PhotosFavorites.belongsTo(PhotoCaptions, {
+    foreignKey: 'caption_id',  // Ensure this is the correct foreign key field
+    as: 'caption'
 });
 
 module.exports = PhotosFavorites;
