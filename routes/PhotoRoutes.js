@@ -46,6 +46,23 @@ router.get('/captions', async (req, res) => {
     }
 });
 
+// GET all favorited photos with their associated captions
+router.get('/favorites-with-captions', async (req, res) => {
+    try {
+        const favoritesWithCaptions = await PhotoFavorite.findAll({
+            include: [{
+                model: PhotoCaption,
+                as: 'caption', // Ensure this alias matches the one used in your model association
+                attributes: ['caption_text'] // Adjust this if you need more fields from PhotoCaptions
+            }]
+        });
+
+        res.json(favoritesWithCaptions);
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
+
 // Get a single favorite photo by id and its associated caption
 router.get('/favorites/:id', async (req, res) => {
     try {

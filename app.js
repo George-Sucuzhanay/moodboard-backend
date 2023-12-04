@@ -1,7 +1,9 @@
 // here we initializes an Express app, parse JSON & will soon define routes here
 const express = require('express');
+const cors = require('cors');
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
 // Import the router from PhotoRoutes.js
