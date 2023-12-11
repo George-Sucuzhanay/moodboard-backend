@@ -18,7 +18,7 @@ This project aims to provide users with a seamless experience in searching for, 
   - **Write routes that return individual instances from each model based on their IDs** - Routes for getting a single favorite or caption by ID are implemented in there too
   - **Write routes to update instances in each model** - Routes for updating favorites & captions are implemented in it 
   - **Write routes to remove instances from each model, based on their IDs** - Routes for deleting favorites & captions are implemented here and also exist in this same file
-  - **Write a route that returns one instance from a model, and all instances associated with it in a different model** - [ask george]
+  - **Write a route that returns one instance from a model, and all instances associated with it in a different model** - Our first route returns the favorites alongside its caption called /favorites-with-captions
 
 ## APIs Used
 
