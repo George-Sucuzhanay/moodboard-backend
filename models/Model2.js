@@ -26,6 +26,7 @@ const PhotoCaptions = db.define('PhotoCaptions', {
   date_created: { //date caption was created
     type: Sequelize.DATE,
     allowNull: false,
+    defaultValue: Sequelize.NOW
   },
 },
 {
