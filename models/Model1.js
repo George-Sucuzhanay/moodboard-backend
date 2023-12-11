@@ -20,7 +20,7 @@ const PhotosFavorites = db.define("PhotosFavorites", {
     },
     
     caption_id: { //foreign key refrencing caption_id in photocaptions table
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER
         // allowNull: true or false based on whether this field is mandatory
     },
     // You may optionally add a reference to the foreign key here,

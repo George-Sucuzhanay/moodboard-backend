@@ -12,18 +12,51 @@ const router = express.Router();
 
 const PhotoFavorite = require('../models/Model1');
 const PhotoCaption = require('../models/Model2');
-
+const sequelize = require('../db.js');
 
 // CREATE
 // Create a new favorite photo in the photofavorites table
 router.post('/favorites', async (req, res) => {
+    const transaction = await sequelize.transaction();
     try {
-        const newFavorite = await PhotoFavorite.create(req.body);
-        res.status(201).json(newFavorite);
+        const newFavorite = await PhotoFavorite.create({
+            photo_url: req.body.photo_url
+        }, { transaction });
+
+        let newCaption = null;
+        if (req.body.caption_text || req.body.caption_text === "") {
+            newCaption = await PhotoCaption.create({
+                caption_text: req.body.caption_text || "",
+            }, { transaction });
+
+            // Update the newFavorite with the caption_id
+            await newFavorite.update({ caption_id: newCaption.caption_id }, { transaction });
+        }
+
+        await transaction.commit();
+        res.status(201).json({ newFavorite, newCaption });
     } catch (error) {
+        await transaction.rollback();
         res.status(400).send(error.message);
     }
 });
+
+// CREATE a check favorites to render grey or red heart icons to exisiting favorited images
+router.post('/check-favorites', async (req, res) => {
+    try {
+        const urls = req.body.urls;
+        const favorites = await PhotoFavorite.findAll({
+            where: { photo_url: urls }
+        });
+        // Return a list of URLs that are favorited
+        const favoritedUrls = favorites.map(fav => fav.photo_url);
+        res.json(favoritedUrls);
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
+
+
 
 // READ
 // Get all favorited photos
