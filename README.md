@@ -4,7 +4,7 @@ A website by the Lally Enthusiasts
 
 ## Project Description
 
-This repository is the front end of a full-stack web application using the tools and techniques we've learned over the semester, including React, Redux, Router, PostgreSQL, Sequelize, Express, and Node.
+This repository is the back end of a full-stack web application using the tools and techniques we've learned over the semester, including React, Redux, Router, PostgreSQL, Sequelize, Express, and Node.
 This project aims to provide users with a seamless experience in searching for, storing, and organizing their favorite images. The application will utilize two external API calls, leveraging the Unsplash API for copyright-free photos and the Pexels API for royalty-free videos, allowing users to curate their mood boards with a diverse range of media content. The images will be stored in a database and users will be able to perform CRUD operations on the captions/favorites of the images. Routing will be managed via a router, states via Redux, and UI features will include utilizing multiple react components.
 
 
